@@ -1,8 +1,11 @@
 package eu.kanade.tachiyomi.extension.en.resetscans
 
 import eu.kanade.tachiyomi.multisrc.madara.Madara
+import eu.kanade.tachiyomi.network.GET
 import eu.kanade.tachiyomi.source.model.SChapter
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.Response
+import org.jsoup.nodes.Document
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -68,5 +71,17 @@ class ResetScans :
         }
 
         return chapters
+    }
+
+    override fun genresRequest() = GET("$baseUrl/$mangaSubString", headers)
+
+    override fun parseGenres(document: Document): List<Genre> = document.select("a.rs-manga-library__genre, a.rs-manga-library__genre-link").mapNotNull { a ->
+        val name = a.selectFirst("span")?.text() ?: a.text()
+        if (name.equals("All", ignoreCase = true)) return@mapNotNull null
+
+        val url = a.absUrl("href").toHttpUrlOrNull() ?: return@mapNotNull null
+        val slug = url.pathSegments.last { it.isNotEmpty() }
+
+        Genre(name, slug)
     }
 }
