@@ -1,7 +1,9 @@
 package eu.kanade.tachiyomi.extension.pt.pizzariascan
 
 import eu.kanade.tachiyomi.multisrc.mangawork.MangaWork
+import eu.kanade.tachiyomi.network.GET
 import keiyoushi.annotation.Source
+import okhttp3.Request
 import java.text.Normalizer
 import java.util.Locale
 
@@ -9,6 +11,10 @@ import java.util.Locale
 abstract class Pizzariascan : MangaWork() {
 
     override val seriesPath = "todas-as-obras"
+
+    override val supportsLatest = false
+
+    override fun popularMangaRequest(page: Int): Request = GET(buildSeriesUrl(page), headers)
 
     override fun getOrderFilterOptions() = orderFilterOptions
 

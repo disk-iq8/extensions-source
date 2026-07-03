@@ -4,7 +4,7 @@ plugins {
 
 keiyoushi {
     name = "PizzariaScan"
-    versionCode = 47
+    versionCode = 48
     contentWarning = ContentWarning.NSFW
     libVersion = "1.4"
     theme = "mangawork"
