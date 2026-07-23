@@ -214,6 +214,8 @@ abstract class MangaFire :
     // ============================== Filters ==============================
 
     override fun getFilterList() = FilterList(
+        ContentRatingFilter(),
+        Filter.Separator(),
         TypeFilter(),
         Filter.Separator(),
         GenreModeFilter(),

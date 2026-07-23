@@ -42,6 +42,18 @@ open class UriTriSelectFilter(
     }
 }
 
+class ContentRatingFilter :
+    UriMultiSelectFilter(
+        "Content Rating",
+        "content_rating[]",
+        arrayOf(
+            Pair("Safe", "safe"),
+            Pair("Suggestive", "suggestive"),
+            Pair("Erotica", "erotica"),
+            Pair("Pornographic", "pornographic"),
+        ),
+    )
+
 class TypeFilter :
     UriMultiSelectFilter(
         "Type",
